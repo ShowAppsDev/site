@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import { Content } from '../content/stacksheets.md';
+import { Content as Install } from '../content/stacksheets-install.md';
+import { stackSheetsRelease, formatSize } from '../lib/downloads.js';
+
+const release = await stackSheetsRelease();
+---
+<Base title="StackSheets" description="StackSheets extrait les données d'enceintes et de rigging des PDF Soundvision et CODA et produit des rapports. Windows, macOS, Android, iOS.">
+  <h1>StackSheets</h1>
+  <p class="lead">Des PDF Soundvision et CODA aux fiches d'accroche, sans recopier un seul chiffre.</p>
+
+  <div class="actions">
+    <a class="button primary" href="#telecharger">Télécharger StackSheets</a>
+  </div>
+
+  <Content />
+
+  <h2 id="telecharger">Télécharger{release.version ? ` la version ${release.version}` : ''}</h2>
+  {release.files.length > 0 ? (
+    <ul class="downloads">
+      {release.files.map((f) => (
+        <li>
+          <span><span class="platform">{f.label}</span> <span class="muted">{f.name}</span></span>
+          <a class="button secondary" href={f.url}>Télécharger{f.size ? ` (${formatSize(f.size)})` : ''}</a>
+        </li>
+      ))}
+      <li>
+        <span><span class="platform">iOS</span> <span class="muted">TestFlight, sur invitation</span></span>
+        <a class="button secondary" href="mailto:support@showapp.fr?subject=%5BStackSheets%5D%20Invitation%20TestFlight">Demander une invitation</a>
+      </li>
+    </ul>
+  ) : (
+    <p>Les fichiers d'installation sont sur la <a href={release.page}>page de la dernière version</a>.</p>
+  )}
+  <p class="muted">
+    <a href={release.page}>Notes de version</a>
+    {release.sums && <> · <a href={release.sums}>SHA256SUMS.txt</a></>}
+  </p>
+
+  <h3>Installation</h3>
+  <Install />
+</Base>

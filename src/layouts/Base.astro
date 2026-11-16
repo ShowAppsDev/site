@@ -1,0 +1,67 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Page d'accueil : titre de la marque seul. */
+  home?: boolean;
+}
+const { title, description, home = false } = Astro.props;
+const fullTitle = home ? title : `${title} — ShowApp`;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const nav = [
+  { href: '/showapp', label: 'ShowApp' },
+  { href: '/stacksheets', label: 'StackSheets' },
+  { href: '/support', label: 'Support' },
+];
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+  </head>
+  <body>
+    <a class="skip" href="#contenu">Aller au contenu</a>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/" aria-label="ShowApp, accueil">
+          <img src="/favicon.svg" alt="" width="28" height="28" />
+          <span>ShowApp</span>
+        </a>
+        <nav aria-label="Navigation principale">
+          <ul>
+            {nav.map((item) => (
+              <li>
+                <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="contenu" class="wrap">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>
+          Les logiciels ShowApp et StackSheets sont distribués sous licence <a href="https://polyformproject.org/licenses/noncommercial/1.0.0/">PolyForm Noncommercial 1.0.0</a> : libres d'utilisation à des fins non commerciales. Pour un usage commercial, écrire à <a href="mailto:support@showapp.fr">support@showapp.fr</a>.
+        </p>
+        <ul class="footer-links">
+          <li><a href="/support">Support</a></li>
+          <li><a href="/mentions-legales">Mentions légales</a></li>
+          <li><a href="/confidentialite">Confidentialité</a></li>
+          <li><a href="https://github.com/ShowAppsDev">GitHub</a></li>
+        </ul>
+        <p class="muted">Ce site n'utilise ni cookie ni outil de mesure d'audience.</p>
+      </div>
+    </footer>
+  </body>
+</html>

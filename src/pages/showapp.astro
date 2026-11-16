@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import { Content } from '../content/showapp.md';
+import { showAppInstaller, formatSize } from '../lib/downloads.js';
+
+const installer = await showAppInstaller();
+---
+<Base home title="ShowApp — gestion d'événements techniques" description="ShowApp, l'application de gestion d'événements techniques : riders, équipements, stage plot, fly prep, amp sheet, équipes.">
+  <h1>ShowApp</h1>
+  <p class="lead">Riders, matériel, plans de scène et équipes : toute la technique d'un événement au même endroit.</p>
+
+  <div class="actions">
+    <a class="button primary" href="https://app.showapp.fr">Ouvrir l'application</a>
+  </div>
+
+  <Content />
+
+  <h2 id="windows">Application Windows</h2>
+  {installer ? (
+    <ul class="downloads">
+      <li>
+        <span><span class="platform">Windows</span> — version {installer.version}</span>
+        <a class="button secondary" href={installer.url}>Télécharger l'installateur{installer.size ? ` (${formatSize(installer.size)})` : ''}</a>
+      </li>
+    </ul>
+  ) : (
+    <p>
+      L'installateur Windows se télécharge depuis l'application, sur <a href="https://app.showapp.fr">app.showapp.fr</a>.
+    </p>
+  )}
+  <p class="muted">Après l'installation, connectez-vous avec votre compte ShowApp.</p>
+</Base>

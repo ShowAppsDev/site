@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import { Content as Intro } from '../content/accueil.md';
+import { Content as Suite } from '../content/accueil-suite.md';
+
+const logiciels = [
+  {
+    nom: 'ShowApp',
+    href: '/showapp',
+    texte: "Gestion d'événements techniques : riders, équipements, stage plot, fly prep, amp sheet et équipes, partagés en direct.",
+    plateformes: 'Navigateur et Windows',
+  },
+  {
+    nom: 'StackSheets',
+    href: '/stacksheets',
+    texte: "Extraction des données d'enceintes et de rigging depuis les PDF Soundvision et CODA, et rapports prêts à l'emploi.",
+    plateformes: 'Windows, macOS, Android et iOS',
+  },
+];
+---
+<Base home title="ShowApp — logiciels pour la technique du spectacle" description="ShowApp regroupe des logiciels pour les équipes techniques du spectacle : ShowApp et StackSheets.">
+  <h1>Des logiciels pour la technique du spectacle</h1>
+  <div class="lead"><Intro /></div>
+
+  <div class="cards">
+    {logiciels.map((l) => (
+      <article class="card">
+        <h2>{l.nom}</h2>
+        <p>{l.texte}</p>
+        <p class="muted">{l.plateformes}</p>
+        <div class="actions">
+          <a class="button primary" href={l.href}>Découvrir {l.nom}</a>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <Suite />
+</Base>
