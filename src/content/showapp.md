@@ -15,10 +15,11 @@ avec quel matériel, sur quel plateau.
 Les modifications apparaissent en direct chez tous les membres de l'équipe qui travaillent sur le
 même événement.
 
-## Dans le navigateur ou sur Windows
+## Dans le navigateur, sur Windows ou sur Mac
 
 ShowApp s'utilise dans un navigateur récent, sur ordinateur comme sur tablette, sans rien installer.
-Une application Windows est aussi disponible ; elle se met à jour toute seule.
+Des applications de bureau sont aussi disponibles pour Windows et pour Mac (voir
+[plus bas](#bureau)) ; celle de Windows se met à jour toute seule.
 
 Pour utiliser ShowApp, il faut un compte. Les données sont hébergées en Suisse, chez Infomaniak
 (voir la page [Confidentialité](/confidentialite)).

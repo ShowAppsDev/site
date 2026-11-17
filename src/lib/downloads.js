@@ -44,12 +44,27 @@ export async function stackSheetsRelease() {
 // app.showapp.fr d'abord ; showapp.fr tant que la bascule n'est pas faite.
 const SHOWAPP_HOSTS = ['https://app.showapp.fr', 'https://showapp.fr'];
 
+// Champ « macos » de l'API : {"arm64": {url, size, sha256} | null, "x86_64": … | null}.
+// Absent ou {} tant qu'aucune version Mac n'est publiée : chaque architecture vaut alors null.
+function macFile(host, entry) {
+  if (!entry || typeof entry.url !== 'string' || !entry.url.startsWith('/')) return null;
+  return { url: `${host}${entry.url}`, size: entry.size ?? null };
+}
+
 export async function showAppInstaller() {
   for (const host of SHOWAPP_HOSTS) {
     try {
       const data = await getJson(`${host}/api/v1/desktop/update/`);
       if (data?.version && typeof data.url === 'string' && data.url.startsWith('/')) {
-        return { version: data.version, url: `${host}${data.url}`, size: data.size ?? null };
+        return {
+          version: data.version,
+          url: `${host}${data.url}`,
+          size: data.size ?? null,
+          macos: {
+            arm64: macFile(host, data.macos?.arm64),
+            x86_64: macFile(host, data.macos?.x86_64),
+          },
+        };
       }
     } catch (err) {
       console.warn(`[téléchargements] ShowApp (${host}) : ${err.message}`);

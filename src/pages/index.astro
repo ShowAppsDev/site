@@ -8,7 +8,8 @@ const logiciels = [
     nom: 'ShowApp',
     href: '/showapp',
     texte: "Gestion d'événements techniques : riders, équipements, stage plot, fly prep, amp sheet et équipes, partagés en direct.",
-    plateformes: 'Navigateur et Windows',
+    plateformes: 'Navigateur, Windows et Mac',
+    rappel: 'Version bêta, en cours de développement : fonctions en évolution, bugs possibles.',
   },
   {
     nom: 'StackSheets',
@@ -28,6 +29,7 @@ const logiciels = [
         <h2>{l.nom}</h2>
         <p>{l.texte}</p>
         <p class="muted">{l.plateformes}</p>
+        {l.rappel && <p class="notice-short">{l.rappel}</p>}
         <div class="actions">
           <a class="button primary" href={l.href}>Découvrir {l.nom}</a>
         </div>

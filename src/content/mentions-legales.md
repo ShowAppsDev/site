@@ -2,12 +2,8 @@
 
 Le site showapp.fr est édité par :
 
-- **Nom ou raison sociale** : <span class="todo">À COMPLÉTER</span>
-- **Statut** (particulier, entreprise individuelle, société, association) : <span class="todo">À COMPLÉTER</span>
-- **Adresse** : <span class="todo">À COMPLÉTER</span>
-- **SIREN / SIRET**, le cas échéant : <span class="todo">À COMPLÉTER</span>
-- **Directeur ou directrice de la publication** : <span class="todo">À COMPLÉTER</span>
-- **Contact** : [support@showapp.fr](mailto:support@showapp.fr)
+- **Nom ou raison sociale** : Julien Conan
+- **Contact** : [contact@showapp.fr](mailto:contact@showapp.fr)
 
 ## Hébergement
 

@@ -1,11 +1,21 @@
 ---
 import Base from '../layouts/Base.astro';
 import { Content } from '../content/showapp.md';
+import { Content as Beta } from '../content/showapp-beta.md';
+import { Content as Mac } from '../content/showapp-mac.md';
 import { showAppInstaller, formatSize } from '../lib/downloads.js';
 
 const installer = await showAppInstaller();
+const version = installer?.version ?? null;
+const bureau = [
+  { label: 'Windows', detail: 'mise à jour automatique', file: installer ? { url: installer.url, size: installer.size } : null, bouton: "Télécharger l'installateur" },
+  { label: 'macOS Apple Silicon', detail: 'Mac avec puce M1 et suivantes', file: installer?.macos.arm64 ?? null, bouton: 'Télécharger' },
+  { label: 'macOS Intel', detail: 'Mac avec processeur Intel', file: installer?.macos.x86_64 ?? null, bouton: 'Télécharger' },
+];
 ---
 <Base home title="ShowApp — gestion d'événements techniques" description="ShowApp, l'application de gestion d'événements techniques : riders, équipements, stage plot, fly prep, amp sheet, équipes.">
+  <aside class="notice" aria-label="Version bêta"><Beta /></aside>
+
   <h1>ShowApp</h1>
   <p class="lead">Riders, matériel, plans de scène et équipes : toute la technique d'un événement au même endroit.</p>
 
@@ -15,18 +25,20 @@ const installer = await showAppInstaller();
 
   <Content />
 
-  <h2 id="windows">Application Windows</h2>
-  {installer ? (
-    <ul class="downloads">
+  <h2 id="bureau">Applications de bureau</h2>
+  {version && <p class="muted">Version {version}. Après l'installation, connectez-vous avec votre compte ShowApp.</p>}
+  <ul class="downloads">
+    {bureau.map((b) => (
       <li>
-        <span><span class="platform">Windows</span> — version {installer.version}</span>
-        <a class="button secondary" href={installer.url}>Télécharger l'installateur{installer.size ? ` (${formatSize(installer.size)})` : ''}</a>
+        <span><span class="platform">{b.label}</span> <span class="muted">{b.detail}</span></span>
+        {b.file ? (
+          <a class="button secondary" href={b.file.url}>{b.bouton}{b.file.size ? ` (${formatSize(b.file.size)})` : ''}</a>
+        ) : (
+          <span class="soon">Bientôt disponible</span>
+        )}
       </li>
-    </ul>
-  ) : (
-    <p>
-      L'installateur Windows se télécharge depuis l'application, sur <a href="https://app.showapp.fr">app.showapp.fr</a>.
-    </p>
-  )}
-  <p class="muted">Après l'installation, connectez-vous avec votre compte ShowApp.</p>
+    ))}
+  </ul>
+
+  <Mac />
 </Base>
