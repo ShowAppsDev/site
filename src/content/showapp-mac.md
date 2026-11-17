@@ -9,5 +9,7 @@
   première fois. Ouvrez **Réglages Système › Confidentialité et sécurité**, descendez jusqu'au
   message concernant ShowApp, cliquez sur **« Ouvrir quand même »**, puis confirmez. Les lancements
   suivants se font normalement.
-- **Mises à jour** : sur Mac, il n'y a pas encore de mise à jour automatique. Pour passer à une
-  nouvelle version, revenez la télécharger sur cette page.
+- **Mises à jour** : depuis la version 0.15.0, ShowApp se met à jour tout seul, comme sur Windows.
+  Quand une nouvelle version est prête, ouvrez la fenêtre **Synchronisation** et cliquez sur
+  **Installer et redémarrer**. Il faut pour cela avoir glissé ShowApp dans le dossier
+  **Applications**. Si vous avez une version plus ancienne, installez la dernière depuis cette page.
